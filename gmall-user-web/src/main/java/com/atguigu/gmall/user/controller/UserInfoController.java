@@ -18,9 +18,11 @@ public class UserInfoController {
     @Reference
     private UserInfoService userInfoService;
 
-    @RequestMapping("user/info/list")
+    @RequestMapping("/user/info/list")
     @ResponseBody
     public List<UserInfo> userInfoList() {
         return userInfoService.getUserInfoList();
     }
+
+
 }

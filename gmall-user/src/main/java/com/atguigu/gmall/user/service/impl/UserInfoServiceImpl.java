@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+
 /**
  * @author gaochen
  * @create 2019-01-08 18:49
@@ -21,7 +22,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public List<UserInfo> getUserInfoList() {
-        return null;
-//        return userInfoMapper.selectAll();
+        return userInfoMapper.selectAll();
     }
+
 }
