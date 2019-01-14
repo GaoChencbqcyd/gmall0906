@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-----------------弹出框----------------------------->
+    <div id="spuSaleAttr_dlg" class="easyui-dialog" title="编辑销售属性" style="width:500px;height:400px;"
+         closed="true"  data-options="iconCls:'icon-save',resizable:true,modal:false" buttons="#spuSaleAttrBtns" >
+        <br/><br/>
+        <!------------------从基本销售属性中选择------------->
+        销售属性：  <select name="saleAttr" id="saleAttrSelect"  class="easyui-combobox" data-options="valueField:'id',textField:'name',url:'baseSaleAttrList'" style="width:100px">  </select>
+        <br/><br/>
+        <!----------------销售属性值列表---------------------------->
+        <table id="spuSaleAttrValueDg" class="easyui-datagrid" title="销售属性值列表"
+               data-options="singleSelect:true,method:'get',toolbar:'#spuSaleAttrValueTootbar'" ></table>
+        <!----------------销售属性值列表工具栏----------------------->
+        <div id="spuSaleAttrValueTootbar" style="padding:5px;height:auto"  >
+            <div style="margin-bottom:5px">
+                <a href="#" id="spuSaleAttrValueAddBtn" class="easyui-linkbutton" iconCls="icon-add" onclick="addSpuSaleAttrValue()" plain="true">添加</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeSpuSaleAttrValue()" >删除</a>
+            </div>
+        </div>
+        <div id="spuSaleAttrBtns">
+            <a href="#" class="easyui-linkbutton" onclick="saveSpuSaleAttr()">确 定</a>
+            <a href="#" class="easyui-linkbutton" onclick="closeSpuSaleAttr()">关 闭</a>
+        </div>
+    </div>
+    <script language="JavaScript">
+        // 保存
+        function saveSpuSaleAttr() {
+            // 获得当前已经添加的销售属性的id和销售属性值的数据集合
+            var saleAttrId = $("#saleAttrSelect").combobox("getValue");
+            var saleAttrName = $("#saleAttrSelect").combobox("getText");
+            var spuSaleAttrValueJson = $("#spuSaleAttrValueDg").datagrid("getData");
+            // 把销售属性和属性值的数据存放-->追加新行
+            alert(JSON.stringify(spuSaleAttrValueJson) );
+            $("#spuSaleAttrDg").datagrid('appendRow', {
+                saleAttrId: saleAttrId,
+                saleAttrName: saleAttrName,
+                spuSaleAttrValueJson: spuSaleAttrValueJson
+            });
+            $("#spuSaleAttr_dlg").dialog("close");
+        }
+        // 关闭
+        function closeSpuSaleAttr() {
+            $("#spuSaleAttr_dlg").dialog("close");
+        }
+        // 为销售属性值追加空行
+        function addSpuSaleAttrValue() {
+            $("#spuSaleAttrValueDg").datagrid('appendRow', {
+                id:'',
+                spuId:'',
+                saleAttrId:'',
+                saleAttrValueName:'请添加销售属性值'
+            });
+        }
+        // 删除销售属性值选定的行
+        function removeSpuSaleAttrValue() {
+           // 返回第一个被选中的行或如果没有选中的行则返回null。
+            var row = $("#spuSaleAttrValueDg").datagrid("getSelected");
+            // 返回指定行的索引号，该行的参数可以是一行记录或一个ID字段值。
+            var rowIndex = $("#spuSaleAttrValueDg").datagrid("getRowIndex", row);
+            $("#spuSaleAttrValueDg").datagrid("deleteRow", rowIndex);
+        }
+        function  initSpuSaleAttrDlg() {
+
+            initSpuSaleAttrValueListDatagrid();
+        }
+        function initSpuSaleAttrValueListDatagrid() {
+            $("#spuSaleAttrValueDg").datagrid({
+                columns:[[
+                    {field:'id',title:'编号',width:100},
+                    {field:'spuId',title:'spuID',width:100},
+                    {field:'saleAttrId',title:'销售属性ID',width:100},
+                    {field: 'saleAttrValueName', title: '销售属性值名称', width: 100,
+                        editor: {
+                            type: 'validatebox',
+                            options: {required: true}
+                        }
+                    }
+                ]],
+                onDblClickRow:function (rowIndex, rowData) {
+                    // 进入当前行，valueName的编辑状态
+                    $("#spuSaleAttrValueDg").datagrid("beginEdit", rowIndex);
+                    // 设定当失去焦点时，退出编辑状态
+                    var valueName = rowData.valueName;
+                    $("input.datagrid-editable-input").val(valueName).bind("blur", function (evt) {
+                        $("#spuSaleAttrValueDg").datagrid('endEdit', rowIndex);
+                    });
+                },
+            });
+        }
+    </script>
+</body>
+</html>

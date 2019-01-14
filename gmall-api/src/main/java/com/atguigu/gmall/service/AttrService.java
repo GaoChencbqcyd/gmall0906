@@ -19,4 +19,6 @@ public interface AttrService {
      List<BaseCatalog3> getCatalog3(String catalog2Id);
 
      List<BaseAttrInfo> getAttrList(String catalog3Id);
+
+     void saveAttr(BaseAttrInfo baseAttrInfo);
 }

@@ -22,6 +22,13 @@ public class AttrController {
     @Reference
     private AttrService attrService;
 
+    @RequestMapping("saveAttr")
+    @ResponseBody
+    public String saveAttr(BaseAttrInfo baseAttrInfo) {
+        attrService.saveAttr(baseAttrInfo);
+        return "success";
+    }
+
     @RequestMapping("getAttrList")
     @ResponseBody
     public List<BaseAttrInfo> getAttrList(String catalog3Id) {
