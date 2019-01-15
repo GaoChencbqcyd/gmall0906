@@ -2,7 +2,9 @@ package com.atguigu.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.gmall.bean.BaseSaleAttr;
+import com.atguigu.gmall.bean.SpuImage;
 import com.atguigu.gmall.bean.SpuInfo;
+import com.atguigu.gmall.bean.SpuSaleAttr;
 import com.atguigu.gmall.manage.util.ManageUploadUtil;
 import com.atguigu.gmall.service.SpuService;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,19 @@ public class SpuController {
     @Reference
     private SpuService spuService;
 
+    @RequestMapping("spuSaleAttrList")
+    @ResponseBody
+    public List<SpuSaleAttr> getSpuSaleAttrList(String spuId) {
+        List<SpuSaleAttr> spuSaleAttrs =  spuService.getSpuSaleAttrList(spuId);
+        return spuSaleAttrs;
+    }
+
+    @RequestMapping("spuImageList")
+    @ResponseBody
+    public List<SpuImage> getSpuImageList(String spuId) {
+        List<SpuImage> spuImages = spuService.getSpuImageList(spuId);
+        return spuImages;
+    }
     @RequestMapping("fileUpload")
     @ResponseBody
     public String fileUpload(@RequestParam("file") MultipartFile multipartFile) {

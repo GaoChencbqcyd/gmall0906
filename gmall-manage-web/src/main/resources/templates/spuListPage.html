@@ -55,6 +55,27 @@
 
     <div th:include="skuInfoPage"></div>
     <script language="JavaScript">
+        // 添加sku
+        function addSkuInfo() {
+            $("#sku_dlg").dialog("open");
+            //　获得三级分类id
+            var catalog3Id = $("#ctg3ForSpuList").combobox("getValue");
+            if(!catalog3Id){
+                catalog3Id = '61';
+            }
+            // 初始化skuInfo页面
+            initAttrInfoGroup(catalog3Id);
+            var spu = $("#spulist_dg").datagrid("getSelected");
+            initSpuSaleAttrGroup(spu.id);
+            initSkuImgListDatagrid(spu.id);
+        }
+        // 打开sku列表
+        function showSkuInfoList() {
+            $("#skulist_dlg").dialog("open");
+            // 传入spuId打开sku列表
+            var spuInfo = $("#spulist_dg").datagrid("getSelected");
+            initSkuListDatagrid(spuInfo);
+        }
         function addSpuInfo() {
             $("#spu_dlg").dialog("open");
             // 初始化spu对话框
