@@ -9,7 +9,6 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.atguigu.gmall</groupId>
 	<artifactId>gmall-user-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gmall-user-web</name>
