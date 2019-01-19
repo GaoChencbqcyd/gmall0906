@@ -10,4 +10,10 @@ import java.util.List;
  */
 public interface SkuService {
     List<SkuInfo> getSkuInfoListBySpu(String spuId);
+
+    SkuInfo item(String skuId);
+
+    List<SkuInfo> getSkuSaleAttrValueListBySpu(String spuId);
+
+    SkuInfo itemFromDb(String skuId);
 }
