@@ -1,5 +1,6 @@
 package com.atguigu.gmall.service;
 
+import com.atguigu.gmall.bean.UserAddress;
 import com.atguigu.gmall.bean.UserInfo;
 
 import java.util.List;
@@ -10,5 +11,13 @@ import java.util.List;
  */
 public interface UserInfoService {
     List<UserInfo> getUserInfoList();
+
+    UserInfo login(UserInfo userInfo);
+
+    void addUserCache(UserInfo userLogin);
+
+    UserAddress getAddressById(String deliveryAddressId);
+
+    List<UserAddress> getAddressListByUserId(String userId);
 
 }

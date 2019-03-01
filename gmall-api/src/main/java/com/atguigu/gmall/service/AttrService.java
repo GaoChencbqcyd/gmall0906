@@ -21,4 +21,6 @@ public interface AttrService {
      List<BaseAttrInfo> getAttrList(String catalog3Id);
 
      void saveAttr(BaseAttrInfo baseAttrInfo);
+
+     List<BaseAttrInfo> getAttrListByValueIds(String join);
 }
